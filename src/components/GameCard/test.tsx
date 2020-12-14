@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import { RenderWithTheme } from 'utils/test/helpers'
 
 import GameCard from '.'
 
@@ -11,7 +12,7 @@ const props = {
 
 describe('<GameCard />', () => {
   it('should render the gameCard with all props', () => {
-    render(<GameCard {...props} />)
+    RenderWithTheme(<GameCard {...props} />)
 
     expect(screen.getByRole('img')).toHaveAttribute('src', 'img')
     expect(screen.getByRole('heading', { name: /title/i })).toBeInTheDocument()
@@ -21,14 +22,14 @@ describe('<GameCard />', () => {
     expect(screen.getByText(/R\$ 200,20/i)).toBeInTheDocument()
   })
   it('should render the full favoriteIcon when is favorited', () => {
-    render(<GameCard {...props} favorite />)
+    RenderWithTheme(<GameCard {...props} favorite />)
 
     expect(screen.getByLabelText(/remove from favorite/i)).toBeInTheDocument()
   })
   it('should call onFav function when favorite in clicked', () => {
     const onFav = jest.fn()
 
-    render(<GameCard {...props} favorite onFav={onFav} />)
+    RenderWithTheme(<GameCard {...props} favorite onFav={onFav} />)
 
     fireEvent.click(screen.getAllByRole('button')[0])
 
