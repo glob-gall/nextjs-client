@@ -11,7 +11,7 @@ export const Wrapper = styled.menu`
   `}
   display: flex;
   align-items: center;
-  position: relative;
+  /* position: relative; */
 `
 
 export const IconWrapper = styled.div`
@@ -87,12 +87,13 @@ export const MenuLink = styled.a`
 
 export const MenuFull = styled.nav<MenuFullProps>`
   ${({ theme, isOpen }) => css`
+    z-index: ${theme.layers.alwaysOnTop};
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     background: ${theme.colors.white};
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
