@@ -65,8 +65,6 @@ describe('<TextField />', () => {
   it('should render with error', () => {
     RenderWithTheme(<TextField error="opa um erro" />)
 
-    expect(
-      screen.getByRole('paragraph', { name: 'opa um erro' })
-    ).toBeInTheDocument()
+    expect(screen.getByText('opa um erro')).toBeInTheDocument()
   })
 })

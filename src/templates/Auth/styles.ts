@@ -52,6 +52,11 @@ export const BannerContent = styled.div`
     height: 100%;
     justify-content: space-between;
   `}
+
+  a {
+    width: fit-content;
+    height: fit-content;
+  }
 `
 
 export const Subtitle = styled.h3`
