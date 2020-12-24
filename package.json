@@ -13,6 +13,10 @@
     "build-storybook": "build-storybook -s ./public"
   },
   "dependencies": {
+    "@styled-icons/boxicons-solid": "^10.18.0",
+    "@styled-icons/fa-brands": "^10.22.0",
+    "@styled-icons/material-outlined": "^10.18.0",
+    "@styled-icons/remix-fill": "^10.18.0",
     "@babel/runtime": "^7.12.5",
     "next": "10.0.3",
     "next-pwa": "^3.1.5",
@@ -21,7 +25,6 @@
     "react-dom": "17.0.1",
     "react-slick": "^0.27.13",
     "styled-components": "5.2.1",
-    "styled-icons": "^10.22.0",
     "styled-media-query": "^2.1.2",
     "uuidv4": "^6.2.6"
   },

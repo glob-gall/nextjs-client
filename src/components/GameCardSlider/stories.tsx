@@ -49,7 +49,7 @@ const items = [
 ]
 
 export default {
-  title: 'GameCardSlider',
+  title: 'Games/GameCardSlider',
   component: GameCardSlider,
   args: { items },
   parameters: {

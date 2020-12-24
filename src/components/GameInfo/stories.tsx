@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react/types-6-0'
 import GameInfo, { gameInfoProps } from '.'
 
 export default {
-  title: 'GameInfo',
+  title: 'Games/GameInfo',
   component: GameInfo,
   args: {
     name: 'Resident evil',
