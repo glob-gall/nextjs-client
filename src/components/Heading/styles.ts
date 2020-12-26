@@ -2,7 +2,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import { headingProps, LineColors } from '.'
 import media from 'styled-media-query'
 
-const wrapperModifier = {
+export const wrapperModifier = {
   small: (theme: DefaultTheme) => css`
     font-size: ${theme.font.sizes.medium};
 
