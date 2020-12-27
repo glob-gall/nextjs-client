@@ -1,7 +1,7 @@
 import Heading from 'components/Heading'
 import * as S from './styles'
 
-type TextContentProps = {
+export type TextContentProps = {
   title?: string
   content: string
 }
