@@ -185,13 +185,37 @@ jest.mock('components;TextContent', () => {
 })
 
 describe('<Game />', () => {
-  it('should render the heading', () => {
+  it('should render template with all components ', () => {
     RenderWithTheme(<Game {...props} />)
 
+    expect(screen.getByLabelText(/cover/i)).toBeInTheDocument()
     expect(screen.getByTestId(/textcontent-mock/i)).toBeInTheDocument()
     expect(screen.getByTestId(/gallery-mock/i)).toBeInTheDocument()
     expect(screen.getByTestId(/gamedetail-mock/i)).toBeInTheDocument()
     expect(screen.getByTestId(/gameinfo-mock/i)).toBeInTheDocument()
     expect(screen.getAllByTestId(/showcase-mock/i)).toHaveLength(2)
-  })
+  }),
+    it('shold not render the gallery with no images', () => {
+      RenderWithTheme(<Game {...props} galleryProps={undefined} />)
+
+      expect(screen.queryByTestId(/gallery-mock/i)).not.toBeInTheDocument()
+    }),
+    it('shold not render the gallery in mobile', () => {
+      RenderWithTheme(<Game {...props} />)
+
+      expect(screen.getByTestId(/gallery-mock/i)).toHaveStyleRule(
+        'display',
+        'none',
+        {
+          media: '(max-width:768px)'
+        }
+      )
+      expect(screen.getByTestId(/gallery-mock/i)).toHaveStyleRule(
+        'display',
+        'block',
+        {
+          media: '(min-width:768px)'
+        }
+      )
+    })
 })

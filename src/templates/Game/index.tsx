@@ -12,7 +12,7 @@ export type GameProps = {
   cover: string
   gameInfoProps: gameInfoProps
   gameDetailsProps: GameDetailsProps
-  galleryProps: GalleryProps
+  galleryProps?: GalleryProps
   description: string
   upcomingGames: gameCardProps[]
   upcomingHighlights: HighlightProps
@@ -30,14 +30,16 @@ const Game = ({
   upcomingHighlights
 }: GameProps) => (
   <Base>
-    <S.Cover src={cover} />
+    <S.Cover src={cover} role="image" aria-label="cover" />
     <S.SectionGameInfo>
       <GameInfo {...gameInfoProps} />
     </S.SectionGameInfo>
 
-    <S.SectionGallery>
-      <Gallery {...galleryProps} />
-    </S.SectionGallery>
+    {!!galleryProps && (
+      <S.SectionGallery>
+        <Gallery {...galleryProps} />
+      </S.SectionGallery>
+    )}
 
     <S.SectionContent>
       <TextContent title="Description" content={description} />
