@@ -8,10 +8,11 @@ type MenuFullProps = {
 export const Wrapper = styled.menu`
   ${({ theme }) => css`
     padding: ${theme.spacings.small};
+    z-index: ${theme.layers.menu};
+    display: flex;
+    align-items: center;
+    position: relative;
   `}
-  display: flex;
-  align-items: center;
-  /* position: relative; */
 `
 
 export const IconWrapper = styled.div`
