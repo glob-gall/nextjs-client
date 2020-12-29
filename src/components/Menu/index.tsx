@@ -26,22 +26,36 @@ const Menu = ({ username }: MenuProps) => {
       </MediaMatch>
 
       <S.LogoWrapper>
-        <Logo hiddeOnMobile />
+        <Link href="/">
+          <a>
+            <Logo hiddeOnMobile />
+          </a>
+        </Link>
       </S.LogoWrapper>
 
       <MediaMatch greaterThan="medium">
         <S.MenuNav>
-          <S.MenuLink href="">Home</S.MenuLink>
-          <S.MenuLink href="">Explore</S.MenuLink>
+          <Link href="/">
+            <S.MenuLink>Home</S.MenuLink>
+          </Link>
+          <S.MenuLink>Explore</S.MenuLink>
         </S.MenuNav>
       </MediaMatch>
 
       <S.MenuWrapper>
         <S.IconWrapper>
-          <SearchIcon aria-label="Search" />
+          <Link href="/search">
+            <a>
+              <SearchIcon aria-label="Search" />
+            </a>
+          </Link>
         </S.IconWrapper>
         <S.IconWrapper>
-          <ShoppingCartIcon aria-label="Open Shopping Cart" />
+          <Link href="/wishlist">
+            <a>
+              <ShoppingCartIcon aria-label="Open Shopping Cart" />
+            </a>
+          </Link>
         </S.IconWrapper>
         {!username && (
           <MediaMatch greaterThan="medium">

@@ -5,8 +5,7 @@ export const Wrapper = styled.article`
     position: relative;
     display: flex;
     flex-direction: column;
-    /* width: 100%; */
-    width: 30rem;
+    width: 100%;
     height: 100%;
     background-color: ${theme.colors.white};
   `}
@@ -25,6 +24,19 @@ export const ImageBox = styled.div`
   );
   background-size: 80rem 14rem;
   animation: placeholderShimmer 1s linear infinite forwards;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @keyframes placeholderShimmer {
+    0% {
+      background-position: -40rem 0;
+    }
+    100% {
+      background-position: 40rem 0;
+    }
+  }
 `
 
 export const Content = styled.div`
@@ -39,20 +51,7 @@ export const Content = styled.div`
 `
 
 export const Info = styled.div`
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  @keyframes placeholderShimmer {
-    0% {
-      background-position: -40rem 0;
-    }
-    100% {
-      background-position: 40rem 0;
-    }
-  }
+  max-width: calc(100% - 2.5rem);
 `
 
 export const Title = styled.h3`
@@ -97,6 +96,7 @@ export const BuyBox = styled.div`
 type PriceProps = {
   isPromotional?: boolean
 }
+
 const priceModifiers = {
   default: (theme: DefaultTheme) => css`
     color: ${theme.colors.white};
@@ -109,7 +109,7 @@ const priceModifiers = {
   promotional: (theme: DefaultTheme) => css`
     color: ${theme.colors.gray};
     text-decoration: line-through;
-    margin-right: ${theme.spacings.xsmall};
+    margin-right: ${theme.spacings.xxsmall};
   `
 }
 
@@ -119,7 +119,7 @@ export const Price = styled.div<PriceProps>`
     font-weight: ${theme.font.bold};
     height: 3rem;
     align-items: center;
-    ${!isPromotional && priceModifiers.default(theme)}
-    ${isPromotional && priceModifiers.promotional(theme)}
+    ${!isPromotional && priceModifiers.default(theme)};
+    ${isPromotional && priceModifiers.promotional(theme)};
   `}
 `

@@ -42,9 +42,9 @@ const Section = styled(Container).attrs({ as: 'section' })`
 
 export const SectionGameInfo = styled(Section)`
   ${({ theme }) => css`
-    margin-top: calc(${theme.spacings.xlarge} * 2);
+    margin-top: calc(${theme.spacings.xlarge});
     ${media.greaterThan('medium')`
-      margin-top: calc(${theme.spacings.xlarge} * 6);
+      margin-top: calc(${theme.spacings.xlarge} * 5);
     `}
   `}
 `
