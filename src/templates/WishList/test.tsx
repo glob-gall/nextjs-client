@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { RenderWithTheme } from 'utils/test/helpers'
 
 import WishList from '.'
 
@@ -31,9 +32,12 @@ jest.mock('components/Showcase', () => ({
 
 describe('<WishList />', () => {
   it('should render all components', () => {
-    render(<WishList {...props} />)
+    RenderWithTheme(<WishList {...props} games={props.recommendedGames} />)
 
     expect(screen.getByRole('heading', { name: /wish list/i }))
     expect(screen.getByTestId('showcase mock')).toBeInTheDocument()
+  })
+  it('should render the Empty component when there aro no games', () => {
+    RenderWithTheme(<WishList {...props} />)
   })
 })
