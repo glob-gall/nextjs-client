@@ -7,29 +7,29 @@ function WishListPage(props: WishlistTemplateProps) {
 export async function getStaticProps() {
   return {
     props: {
-      // games: [
-      //   {
-      //     title: 'Population Zero',
-      //     developer: 'Rockstar Games',
-      //     img: 'https://source.unsplash.com/user/willianjusten/300x140',
-      //     price: 'R$ 235,00',
-      //     promotionalPrice: 'R$ 215,00'
-      //   },
-      //   {
-      //     title: 'Population Zero',
-      //     developer: 'Rockstar Games',
-      //     img: 'https://source.unsplash.com/user/willianjusten/300x141',
-      //     price: 'R$ 235,00',
-      //     promotionalPrice: 'R$ 215,00'
-      //   },
-      //   {
-      //     title: 'Population Zero',
-      //     developer: 'Rockstar Games',
-      //     img: 'https://source.unsplash.com/user/willianjusten/300x142',
-      //     price: 'R$ 235,00',
-      //     promotionalPrice: 'R$ 215,00'
-      //   }
-      // ],
+      games: [
+        {
+          title: 'Population Zero',
+          developer: 'Rockstar Games',
+          img: 'https://source.unsplash.com/user/willianjusten/300x140',
+          price: 'R$ 235,00',
+          promotionalPrice: 'R$ 215,00'
+        },
+        {
+          title: 'Population Zero',
+          developer: 'Rockstar Games',
+          img: 'https://source.unsplash.com/user/willianjusten/300x141',
+          price: 'R$ 235,00',
+          promotionalPrice: 'R$ 215,00'
+        },
+        {
+          title: 'Population Zero',
+          developer: 'Rockstar Games',
+          img: 'https://source.unsplash.com/user/willianjusten/300x142',
+          price: 'R$ 235,00',
+          promotionalPrice: 'R$ 215,00'
+        }
+      ],
       recommendedGames: [
         {
           title: 'Population Zero',
