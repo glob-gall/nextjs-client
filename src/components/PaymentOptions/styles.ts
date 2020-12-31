@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components'
 import * as HeadingStyle from 'components/Heading/styles'
 
 export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   ${({ theme }) => css`
     background: ${theme.colors.white};
 
@@ -11,7 +13,9 @@ export const Wrapper = styled.div`
   `}
 `
 
-export const CardsList = styled.div``
+export const CardsList = styled.div`
+  margin-top: auto;
+`
 
 export const CardItem = styled.div`
   ${({ theme }) => css`
