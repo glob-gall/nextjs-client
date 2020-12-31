@@ -37,3 +37,9 @@ AsLink.args = {
   as: 'a',
   href: '/link'
 }
+export const Disabled: Story<ButtonProps> = (args) => <Button {...args} />
+
+Disabled.args = {
+  children: 'Buy now',
+  disabled: true
+}

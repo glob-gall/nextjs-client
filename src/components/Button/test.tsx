@@ -2,8 +2,7 @@ import { screen } from '@testing-library/react'
 import { RenderWithTheme } from 'utils/test/helpers'
 import 'jest-styled-components'
 import Button from '.'
-
-import { AddShoppingCart } from '@styled-icons/material'
+import { AddShoppingCart } from '@styled-icons/material-outlined'
 
 describe('<Button />', () => {
   it('should render the medium size by default', () => {
@@ -64,5 +63,12 @@ describe('<Button />', () => {
     expect(
       screen.getByRole('link', { name: /won games link/i })
     ).toHaveAttribute('href', '/link')
+  })
+  it('should render a disabled button', () => {
+    RenderWithTheme(<Button disabled>Won Games Link</Button>)
+
+    expect(
+      screen.getByRole('button', { name: /won games link/i })
+    ).toHaveAttribute('disabled', true)
   })
 })
