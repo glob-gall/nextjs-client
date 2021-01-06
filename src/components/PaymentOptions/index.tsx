@@ -5,7 +5,7 @@ import Radio from 'components/Radio'
 import { useState } from 'react'
 import * as S from './styles'
 
-type CreditCard = {
+export type CreditCard = {
   number: string
   flag: string
   img: string

@@ -6,7 +6,7 @@ import TextField from '.'
 
 describe('<TextField />', () => {
   it('should render with label', () => {
-    RenderWithTheme(<TextField label="label" labelFor="field" id="filed" />)
+    RenderWithTheme(<TextField label="label" name="filed" />)
 
     expect(screen.getByLabelText('label')).toBeInTheDocument()
   })
@@ -18,12 +18,7 @@ describe('<TextField />', () => {
   it('change the value when typing', async () => {
     const onInput = jest.fn()
     RenderWithTheme(
-      <TextField
-        onInput={onInput}
-        label="TextField"
-        labelFor="TextField"
-        id="TextField"
-      />
+      <TextField onInput={onInput} label="TextField" name="TextField" />
     )
 
     const input = screen.getByRole('textbox')
