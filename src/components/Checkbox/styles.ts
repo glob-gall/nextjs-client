@@ -51,5 +51,6 @@ export const Label = styled.label<LabelProps>`
   ${({ theme, labelColor }) => css`
     color: ${theme.colors[labelColor!]};
     line-height: 1;
+    margin-left: ${theme.spacings.xxsmall};
   `}
 `
