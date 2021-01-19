@@ -1,7 +1,33 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 
-export const Wrapper = styled.div``
+import * as EmptyStyles from 'components/Empty/styles'
+
+type WrapperProps = {
+  isEmpty: boolean
+}
+export const Wrapper = styled.div<WrapperProps>`
+  ${({ theme, isEmpty }) => css`
+    background: ${theme.colors.white};
+
+    ${isEmpty &&
+    css`
+      ${EmptyStyles.Wrapper} {
+        padding-bottom: ${theme.spacings.medium};
+      }
+      ${EmptyStyles.Image} {
+        max-width: 20rem;
+      }
+      ${EmptyStyles.Title} {
+        font-size: ${theme.font.sizes.large};
+      }
+      ${EmptyStyles.Description} {
+        color: ${theme.colors.black};
+        font-size: ${theme.font.sizes.medium};
+      }
+    `}
+  `}
+`
 
 export const Footer = styled.div`
   ${({ theme }) => css`
@@ -22,7 +48,7 @@ export const Footer = styled.div`
       padding: ${theme.spacings.xsmall} ${theme.spacings.small};
     `}
 
-    span {
+    >span {
       color: ${theme.colors.primary};
     }
   `}

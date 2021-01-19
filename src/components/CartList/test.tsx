@@ -34,4 +34,9 @@ describe('<CartList />', () => {
 
     expect(screen.getByRole('text', { name: props.total })).toBeInTheDocument()
   })
+  it('should render with button', () => {
+    RenderWithTheme(<CartList {...props} hasButton />)
+
+    expect(screen.getByRole('button', { name: /buy now/i })).toBeInTheDocument()
+  })
 })
