@@ -1,92 +1,18 @@
+import { initializeApollo } from 'utils/apollo'
 import Home, { HomeTemplateProps } from '../templates/Home'
 
 export default function Index(props: HomeTemplateProps) {
+  // if (loading) return <p>loading...</p>
+  // if (error) return <p>ERROR: {JSON.stringify(error, null, 2)}</p>
+  // if (data) return <p>{JSON.stringify(data, null, 2)}</p>
+
   return <Home {...props} />
 }
 
 // getStaticProps
 // getServerSideProps - (old getInitialProps)
 
-export const getStaticProps = () => {
-  const banners = [
-    {
-      img: 'https://source.unsplash.com/user/willianjusten/1042x580',
-      title: 'Defy death 1',
-      subtitle: '<p>Play the new <strong>CrashLands</strong> season',
-      buttonLabel: 'Buy now',
-      buttonLink: '/games/defy-death',
-      ribbon: 'Bestselling'
-    },
-    {
-      img: 'https://source.unsplash.com/user/willianjusten/1042x582',
-      title: 'Defy death 2',
-      subtitle: '<p>Play the new <strong>CrashLands</strong> season',
-      buttonLabel: 'Buy now',
-      buttonLink: '/games/defy-death'
-    },
-    {
-      img: 'https://source.unsplash.com/user/willianjusten/1042x581',
-      title: 'Defy death 3',
-      subtitle: '<p>Play the new <strong>CrashLands</strong> season',
-      buttonLabel: 'Buy now',
-      buttonLink: '/games/defy-death'
-    }
-  ]
-
-  const games = [
-    {
-      title: 'Population Zero',
-      developer: 'Rockstar Games',
-      img: 'https://source.unsplash.com/user/willianjusten/300x140',
-      price: 'R$ 235,00',
-      promotionalPrice: 'R$ 215,00'
-    },
-    {
-      title: 'Population Zero',
-      developer: 'Rockstar Games',
-      img: 'https://source.unsplash.com/user/willianjusten/300x141',
-      price: 'R$ 235,00',
-      promotionalPrice: 'R$ 215,00'
-    },
-    {
-      title: 'Population Zero',
-      developer: 'Rockstar Games',
-      img: 'https://source.unsplash.com/user/willianjusten/300x142',
-      price: 'R$ 235,00',
-      promotionalPrice: 'R$ 215,00'
-    },
-    {
-      title: 'Population Zero',
-      developer: 'Rockstar Games',
-      img: 'https://source.unsplash.com/user/willianjusten/300x143',
-      price: 'R$ 235,00',
-      promotionalPrice: 'R$ 215,00'
-    },
-    {
-      title: 'Population Zero',
-      developer: 'Rockstar Games',
-      img: 'https://source.unsplash.com/user/willianjusten/300x144',
-      price: 'R$ 235,00',
-      promotionalPrice: 'R$ 215,00'
-    },
-    {
-      title: 'Population Zero',
-      developer: 'Rockstar Games',
-      img: 'https://source.unsplash.com/user/willianjusten/300x145',
-      price: 'R$ 235,00',
-      promotionalPrice: 'R$ 215,00'
-    }
-  ]
-
-  const highlight = {
-    title: 'Read Dead it’s back',
-    subtitle: 'Come see John’s new adventures',
-    buttonLabel: 'Buy now',
-    buttonLink: '/rdr2',
-    backgroundImage: './img/Background.png',
-    floatImg: './img/Image.png'
-  }
-
+export const getStaticProps = async () => {
   return {
     props: {
       banners,
