@@ -26,10 +26,7 @@ export async function getStaticProps() {
         img:
           game.cover ||
           'https://source.unsplash.com/user/willianjusten/300x140',
-        price: new Intl.NumberFormat('en', {
-          style: 'currency',
-          currency: 'USD'
-        }).format(game.price)
+        price: game.price
       }))
     }
   }

@@ -6,17 +6,18 @@ import {
 import Button from 'components/Button'
 import Heading from 'components/Heading'
 import Ribbon from 'components/Ribbon'
+import { formatPrice } from 'utils/formatPrice'
 import * as S from './styles'
 
 export type gameInfoProps = {
   name: string
   description: string
-  price: string
+  price: number
 }
 
 const GameInfo = ({ name, description, price }: gameInfoProps) => (
   <S.Wrapper>
-    <Ribbon color="secondary">{price}</Ribbon>
+    <Ribbon color="secondary">{formatPrice(price)}</Ribbon>
     <Heading lineBottom color="black" lineColor="primary">
       {name}
     </Heading>

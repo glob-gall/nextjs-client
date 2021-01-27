@@ -1,19 +1,54 @@
-// import { useRouter } from 'next/router'
+import { Category } from '@styled-icons/material-outlined'
+import {
+  QueryGameBySlug,
+  QueryGameBySlugVariables
+} from 'graphql/generated/QueryGameBySlug'
+import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
+import { QUERY_GAMES, QUERY_GAME_BY_SLUG } from 'graphql/queries/games'
+import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import Game, { GameProps } from 'templates/Game'
+import { initializeApollo } from 'utils/apollo'
+
+const apolloClient = initializeApollo()
+
 export default function Index(props: GameProps) {
-  // const router = useRouter()
+  const router = useRouter()
+
+  if (router.isFallback) return null
 
   return <Game {...props} />
 }
 
 export async function getStaticPaths() {
+  const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
+    query: QUERY_GAMES,
+    variables: { limit: 9 }
+  })
+
+  const paths = data.games.map(({ slug }) => ({ params: { slug } }))
+
   return {
-    paths: [{ params: { slug: 'a' } }],
-    fallback: false
+    paths: paths,
+    fallback: true
   }
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { data } = await apolloClient.query<
+    QueryGameBySlug,
+    QueryGameBySlugVariables
+  >({
+    query: QUERY_GAME_BY_SLUG,
+    variables: { slug: `${params?.slug}` }
+  })
+
+  if (!data.games.length) {
+    return { notFound: true }
+  }
+
+  const game = data.games[0]
+
   return {
     props: {
       galleryProps: {
@@ -41,22 +76,20 @@ export async function getStaticProps() {
         ]
       },
       gameDetailsProps: {
-        developer: 'Developer',
-        genres: ['Action', 'Adventure'],
-        platforms: ['windows', 'mac'],
-        publisher: 'Develover Publisher',
-        rating: 'BR16',
-        releaseDate: '2020-11-21T23:00:00'
+        developer: game.developers[0].name,
+        genres: game.categories.map((category) => category.name),
+        platforms: game.platforms.map((platform) => platform.name),
+        publisher: game.publisher?.name,
+        rating: game.rating,
+        releaseDate: game.release_date
       },
       gameInfoProps: {
-        description:
-          'Experience the epic space strategy games that redefined the RTS genre. Control your fleet and build an armada across more than 30 single-player missions.',
-        name: 'Borderlands 3',
-        price: 'R$ 215,00'
+        description: game.short_description,
+        name: game.name,
+        price: game.price
       },
       cover: 'https://source.unsplash.com/user/willianjusten/1080x580',
-      description:
-        'Experience the epic space strategy games that redefined the RTS genre. Control your fleet and build an armada across more than 30 single-player missions.',
+      description: game.description,
       recommendedGames: [
         {
           title: 'Population Zero',
