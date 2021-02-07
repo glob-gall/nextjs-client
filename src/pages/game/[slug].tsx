@@ -1,14 +1,18 @@
-import { Category } from '@styled-icons/material-outlined'
 import {
   QueryGameBySlug,
   QueryGameBySlugVariables
 } from 'graphql/generated/QueryGameBySlug'
 import { QueryGames, QueryGamesVariables } from 'graphql/generated/QueryGames'
+import { QueryRecommended } from 'graphql/generated/QueryRecommended'
+import { QueryUpcomming } from 'graphql/generated/QueryUpcomming'
 import { QUERY_GAMES, QUERY_GAME_BY_SLUG } from 'graphql/queries/games'
+import { QUERY_RECOMMENDED } from 'graphql/queries/recommended'
+import { QUERY_UPCOMMING } from 'graphql/queries/upcomming'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import Game, { GameProps } from 'templates/Game'
 import { initializeApollo } from 'utils/apollo'
+import { gamesMapper, highlightMapper } from 'utils/mappers'
 
 const apolloClient = initializeApollo()
 
@@ -35,6 +39,8 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const TODAY = new Date().toISOString().slice(0, 10)
+
   const { data } = await apolloClient.query<
     QueryGameBySlug,
     QueryGameBySlugVariables
@@ -42,12 +48,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     query: QUERY_GAME_BY_SLUG,
     variables: { slug: `${params?.slug}` }
   })
-
   if (!data.games.length) {
     return { notFound: true }
   }
-
   const game = data.games[0]
+
+  const {
+    data: { recommended }
+  } = await apolloClient.query<QueryRecommended>({
+    query: QUERY_RECOMMENDED
+  })
+  const {
+    data: { upcomingGames, showcase }
+  } = await apolloClient.query<QueryUpcomming>({
+    query: QUERY_UPCOMMING,
+    variables: { date: TODAY }
+  })
 
   return {
     props: {
@@ -90,102 +106,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
       cover: 'https://source.unsplash.com/user/willianjusten/1080x580',
       description: game.description,
-      recommendedGames: [
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x140',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x141',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x142',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x143',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x144',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x145',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        }
-      ],
-      upcomingHighlights: {
-        title: 'Read Dead it’s back',
-        subtitle: 'Come see John’s new adventures',
-        buttonLabel: 'Buy now',
-        buttonLink: '/rdr2',
-        backgroundImage: '/img/Background.png',
-        floatImg: '/img/Image.png'
-      },
-      upcomingGames: [
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x140',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x141',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x142',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x143',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x144',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        },
-        {
-          title: 'Population Zero',
-          developer: 'Rockstar Games',
-          img: 'https://source.unsplash.com/user/willianjusten/300x145',
-          price: 'R$ 235,00',
-          promotionalPrice: 'R$ 215,00'
-        }
-      ]
+      recommendedGames: gamesMapper(recommended?.section?.games),
+      upcomingHighlights: highlightMapper(showcase?.upcomingGames?.highlight),
+      upcomingGames: gamesMapper(upcomingGames)
     }
   }
 }
