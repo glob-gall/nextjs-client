@@ -1,9 +1,10 @@
 import { screen } from '@testing-library/react'
+import { MockedProvider } from '@apollo/client/testing'
 import { RenderWithTheme } from 'utils/test/helpers'
-import gamesMock from '__mocks__/GameCardsMock'
 import filterItemsMock from '__mocks__/ExploreSideBar'
 
 import Games from '.'
+import { QUERY_GAMES } from 'graphql/queries/games'
 
 jest.mock('templates/Base', () => ({
   __esModule: true,
@@ -34,7 +35,35 @@ const sideBarProps = {
 describe('<Games />', () => {
   it('should render sections', () => {
     RenderWithTheme(
-      <Games sideBarProps={sideBarProps} games={[gamesMock[0]]} />
+      <MockedProvider
+        mocks={[
+          {
+            request: {
+              query: QUERY_GAMES,
+              variables: { limit: 15 }
+            },
+            result: {
+              data: {
+                games: [
+                  {
+                    name: 'RimWorld',
+                    slug: 'rimworld',
+                    cover: {
+                      url: '/uploads/rimworld_8e93acc963.jpg'
+                    },
+                    developers: [{ name: 'Ludeon Studios' }],
+                    price: 65.99,
+                    __typename: 'Game'
+                  }
+                ]
+              }
+            }
+          }
+        ]}
+        addTypename={false}
+      >
+        <Games sideBarProps={sideBarProps} />
+      </MockedProvider>
     )
 
     expect(screen.getByTestId('Mock ExploreSidebar')).toBeInTheDocument()

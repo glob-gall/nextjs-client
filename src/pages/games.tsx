@@ -10,24 +10,16 @@ export default function GamesPage(props: GamesTemplateProps) {
 
 export async function getStaticProps() {
   const apolloClient = initializeApollo()
-  const { data } = await apolloClient.query<QueryGames, QueryGamesVariables>({
+  await apolloClient.query<QueryGames, QueryGamesVariables>({
     query: QUERY_GAMES,
-    variables: { limit: 9 }
+    variables: { limit: 12 }
   })
 
   return {
     props: {
       revalidate: 60,
-      sideBarProps: { items: ExploreSideBarMock },
-      games: data.games.map((game) => ({
-        title: game.name,
-        slug: game.slug,
-        developer: game.developers[0]?.name || 'not informed',
-        img:
-          game.cover ||
-          'https://source.unsplash.com/user/willianjusten/300x140',
-        price: game.price
-      }))
+      initialApolloState: apolloClient.cache.extract(),
+      sideBarProps: { items: ExploreSideBarMock }
     }
   }
 }
