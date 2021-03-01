@@ -46,7 +46,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     QueryGameBySlugVariables
   >({
     query: QUERY_GAME_BY_SLUG,
-    variables: { slug: `${params?.slug}` }
+    variables: { slug: `${params?.slug}` },
+    fetchPolicy: 'no-cache'
   })
   if (!data.games.length) {
     return { notFound: true }
@@ -66,31 +67,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   })
 
   return {
+    revalidate: 60,
     props: {
-      revalidate: 60,
       galleryProps: {
-        items: [
-          {
-            src: 'https://source.unsplash.com/user/willianjusten/1042x580',
-            label: 'label 1'
-          },
-          {
-            src: 'https://source.unsplash.com/user/willianjusten/1080x580',
-            label: 'label 2'
-          },
-          {
-            src: 'https://source.unsplash.com/user/willianjusten/520x580',
-            label: 'label 3'
-          },
-          {
-            src: 'https://source.unsplash.com/user/willianjusten/1042x520',
-            label: 'label 4'
-          },
-          {
-            src: 'https://source.unsplash.com/user/willianjusten/520x520',
-            label: 'label 5'
-          }
-        ]
+        items: game.gallery.map((image, index) => ({
+          src: `http://localhost:1337${image.src}`,
+          label: index
+        }))
       },
       gameDetailsProps: {
         developer: game.developers[0].name,
@@ -105,7 +88,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         name: game.name,
         price: game.price
       },
-      cover: 'https://source.unsplash.com/user/willianjusten/1080x580',
+      cover:
+        `http://localhost:1337${game.cover?.src}` ||
+        'https://source.unsplash.com/user/willianjusten/1080x580',
       description: game.description,
       recommendedGames: gamesMapper(recommended?.section?.games),
       upcomingHighlights: highlightMapper(showcase?.upcomingGames?.highlight),

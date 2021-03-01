@@ -16,6 +16,7 @@ describe('<Dropdown />', () => {
       </Dropdown>
     )
     const content = screen.getByText(/content/i).parentElement
+    const overlay = content?.nextElementSibling
 
     expect(screen.getByText(/dropdown/i)).toBeInTheDocument()
     expect(content).toHaveAttribute('aria-hidden')
@@ -25,5 +26,10 @@ describe('<Dropdown />', () => {
 
     expect(content).not.toHaveAttribute('aria-hidden')
     expect(content).toHaveStyle({ opacity: 1 })
+
+    userEvent.click(overlay!)
+
+    expect(content).toHaveAttribute('aria-hidden')
+    expect(content).toHaveStyle({ opacity: 0 })
   })
 })

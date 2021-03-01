@@ -22,12 +22,14 @@ export const getStaticProps = async () => {
     query: QUERY_HOME,
     variables: {
       date: TODAY
-    }
+    },
+    fetchPolicy: 'no-cache'
   })
+  console.log(sections)
 
   return {
+    revalidate: 60,
     props: {
-      revalidate: 60,
       banners: BannerMapper(banners),
       newGames: gamesMapper(newGames),
       freeGames: gamesMapper(freeGames),

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const Title = styled.div`
   ${({ theme }) => css`
+    z-index: ${theme.layers.modal};
     cursor: pointer;
     color: ${theme.colors.white};
     position: relative;
@@ -13,6 +14,7 @@ export const Title = styled.div`
 
 export const Content = styled.div`
   ${({ theme }) => css`
+    z-index: ${theme.layers.modal};
     display: flex;
     flex-direction: column;
     background: ${theme.colors.white};
@@ -30,6 +32,18 @@ export const Content = styled.div`
       top: -1.2rem;
       right: 2.4rem;
     }
+  `}
+`
+
+export const Overlay = styled.div`
+  ${({ theme }) => css`
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: ${theme.layers.overlay};
   `}
 `
 

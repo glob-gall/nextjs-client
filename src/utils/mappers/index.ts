@@ -20,18 +20,18 @@ export const BannerMapper = (banners: QueryHome_banners[]) => {
 }
 
 export const gamesMapper = (games: QueryGames_games[] | null | undefined) => {
-  return (
-    games &&
-    games.map((game) => ({
-      title: game.name,
-      slug: game.slug,
-      developer: game.developers[0].name,
-      img: game.cover
-        ? `http://localhost:1337${game.cover.url}`
-        : 'https://source.unsplash.com/user/willianjusten/300x140',
-      price: game.price
-    }))
-  )
+  return games
+    ? games.map((game) => ({
+        id: game.id,
+        title: game.name,
+        slug: game.slug,
+        developer: game.developers[0].name,
+        img: game.cover
+          ? `http://localhost:1337${game.cover.url}`
+          : 'https://source.unsplash.com/user/willianjusten/300x140',
+        price: game.price
+      }))
+    : []
 }
 
 export const highlightMapper = (

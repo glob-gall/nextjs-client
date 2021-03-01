@@ -4,6 +4,7 @@ import { RenderWithTheme } from 'utils/test/helpers'
 import ExploreSideBar from '.'
 import mock from '__mocks__/ExploreSideBar'
 import userEvent from '@testing-library/user-event'
+
 describe('<ExploreSideBar />', () => {
   it('should render all components', () => {
     RenderWithTheme(<ExploreSideBar items={mock} onFilter={jest.fn} />)
@@ -30,15 +31,21 @@ describe('<ExploreSideBar />', () => {
       RenderWithTheme(
         <ExploreSideBar
           items={mock}
-          initialValues={{ windows: true, sort_by: 'low-to-high' }}
+          initialValues={{
+            platforms: ['windows'],
+            sort_by: 'low-to-high'
+          }}
           onFilter={onFilter}
         />
       )
 
-      userEvent.click(screen.getByRole('button', { name: /filter/i }))
+      userEvent.click(screen.getByLabelText(/windows/i))
+      userEvent.click(screen.getByLabelText(/linux/i))
+
+      expect(onFilter).toHaveBeenCalledTimes(3)
 
       expect(onFilter).toHaveBeenCalledWith({
-        windows: true,
+        platforms: ['windows'],
         sort_by: 'low-to-high'
       })
     })

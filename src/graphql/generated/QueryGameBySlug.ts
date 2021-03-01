@@ -11,7 +11,7 @@ import { ENUM_GAME_RATING } from "./globalTypes";
 
 export interface QueryGameBySlug_games_gallery {
   __typename: "UploadFile";
-  rsc: string;
+  src: string;
   label: string | null;
 }
 
@@ -42,6 +42,7 @@ export interface QueryGameBySlug_games_platforms {
 
 export interface QueryGameBySlug_games {
   __typename: "Game";
+  id: string;
   name: string;
   price: number;
   short_description: string;

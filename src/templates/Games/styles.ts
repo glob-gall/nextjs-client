@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components'
+import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 import Container from 'components/Container'
 
@@ -14,57 +14,25 @@ export const Main = styled(Container)`
 `
 
 export const ShowMore = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
+`
+
+export const ShowMoreButton = styled.div`
   ${({ theme }) => css`
-    color: ${theme.colors.white};
-    font-weight: ${theme.font.bold};
-    text-transform: uppercase;
-    font-size: ${theme.font.sizes.medium};
-    cursor: pointer;
-    padding: ${theme.spacings.medium};
-
     text-align: center;
-
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    color: ${theme.colors.white};
     > svg {
       color: ${theme.colors.primary};
     }
   `}
 `
 
-const svgLoop = keyframes`
-  0%{
-    top: 10rem;
-    width: 5rem;
-  }
-  50%{
-    top: 8rem;
-    width: 8rem;
-  }
-  100%{
-    top: 10rem;
-    width: 5rem;
-  }
-`
-
-export const Loading = styled.div`
-  ${({ theme }) => css`
-    color: ${theme.colors.white};
-    height: 35rem;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-
-    p {
-      font-weight: ${theme.font.bold};/
-    }
-    svg {
-      position: absolute;
-
-      animation: ${svgLoop};
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-    }
-  `}
+export const ShowMoreLoading = styled.img`
+  width: 4rem;
 `
