@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ENUM_COMPONENTPAGEHIGHLIGHT_ALIGMENT } from "./globalTypes";
+import { ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: QueryUpcomming
@@ -47,7 +47,7 @@ export interface QueryUpcomming_showcase_upcomingGames_highlight {
   floatImage: QueryUpcomming_showcase_upcomingGames_highlight_floatImage | null;
   buttonLabel: string;
   buttonLink: string;
-  aligment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGMENT | null;
+  alignment: ENUM_COMPONENTPAGEHIGHLIGHT_ALIGNMENT | null;
 }
 
 export interface QueryUpcomming_showcase_upcomingGames {

@@ -45,7 +45,7 @@ export const highlightMapper = (
       buttonLink: highlight.buttonLink,
       backgroundImage: `http://localhost:1337${highlight.background?.url}`,
       floatImg: `http://localhost:1337${highlight.floatImage?.url}`,
-      alignment: highlight.aligment
+      alignment: highlight.alignment
     }
   )
 }

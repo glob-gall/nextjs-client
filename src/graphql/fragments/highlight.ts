@@ -12,6 +12,6 @@ export const HighlightFragment = gql`
     }
     buttonLabel
     buttonLink
-    aligment
+    alignment
   }
 `
