@@ -8,28 +8,37 @@ import { useApollo } from 'utils/apollo'
 
 import GlobalStyles from '../styles/global'
 import theme from '../styles/theme'
+import ProgressBar from 'nextjs-progressbar'
 
 function App({ Component, pageProps }: AppProps) {
   const client = useApollo(pageProps.initialApolloState)
   return (
-    <AuthProvider session={pageProps.session}>
-      <ApolloProvider client={client}>
-        <ThemeProvider theme={theme}>
-          <Head>
-            <title>Won Games</title>
-            <link rel="shortcut icon" href="/img/icon-512.png" />
-            <link rel="apple-touch-icon" href="/img/icon-512.png" />
-            <link rel="manifest" href="/manifest.json" />
-            <meta
-              name="description"
-              content="A store made by gamers to gamers"
-            />
-          </Head>
-          <GlobalStyles />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </ApolloProvider>
-    </AuthProvider>
+    <>
+      <AuthProvider session={pageProps.session}>
+        <ApolloProvider client={client}>
+          <ThemeProvider theme={theme}>
+            <Head>
+              <title>Won Games</title>
+              <link rel="shortcut icon" href="/img/icon-512.png" />
+              <link rel="apple-touch-icon" href="/img/icon-512.png" />
+              <link rel="manifest" href="/manifest.json" />
+              <meta
+                name="description"
+                content="A store made by gamers to gamers"
+              />
+            </Head>
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </ApolloProvider>
+      </AuthProvider>
+      <ProgressBar
+        color="#F231A5"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={6}
+      />
+    </>
   )
 }
 

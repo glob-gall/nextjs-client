@@ -1,14 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Email, Lock } from '@styled-icons/material-outlined'
+import { Email, Lock, ErrorOutline } from '@styled-icons/material-outlined'
 import { signIn } from 'next-auth/client'
 import Link from 'next/link'
 
 import Button from 'components/Button'
-import { FormWrapper, FormLink } from 'components/Form'
+import { FormWrapper, FormLink, FormLoading, FormError } from 'components/Form'
 import TextField from 'components/TextField'
 import * as S from './styles'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { FieldErrors, siginInValidate } from 'utils/validations'
 
 type signInType = {
   email: string
@@ -16,7 +17,11 @@ type signInType = {
 }
 
 const FormSignIn = () => {
-  const { push } = useRouter()
+  const routes = useRouter()
+  const { push, query } = routes
+  const [formError, setFormError] = useState('')
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
+  const [loading, setLoading] = useState(false)
   const [values, setValues] = useState<signInType>({
     email: '',
     password: ''
@@ -28,37 +33,57 @@ const FormSignIn = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    setLoading(true)
+
+    const errors = siginInValidate(values)
+    if (Object.keys(errors).length) {
+      setFieldError(errors)
+      setLoading(false)
+      return
+    }
+    setFieldError({})
 
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
-      callback: '/'
+      callbackUrl: query.callbackUrl
+        ? `${window.location.origin}${query?.callbackUrl}`
+        : `${window.location.origin}`
     })
 
     if (result?.url) {
       return push(result.url)
     }
 
-    console.error('email ou senha invalidos')
+    setLoading(false)
+    setFormError('username or password is invalid')
   }
 
   return (
     <FormWrapper>
+      {!!formError && (
+        <FormError>
+          <ErrorOutline />
+          {formError}
+        </FormError>
+      )}
       <form onSubmit={handleSubmit}>
         <TextField
+          error={fieldError?.email}
           onInputChange={(v) => handleInput('email', v)}
           placeholder="Email"
           icon={<Email />}
         />
         <TextField
+          error={fieldError?.password}
           type="password"
           onInputChange={(v) => handleInput('password', v)}
           placeholder="Password"
           icon={<Lock />}
         />
         <S.ForgotPassword href="/">Forgot your password?</S.ForgotPassword>
-        <Button type="submit" fullWidth size="large">
-          Sign in Now
+        <Button type="submit" fullWidth size="large" disabled={loading}>
+          {loading ? <FormLoading /> : <span>Sign in Now</span>}
         </Button>
       </form>
       <FormLink>

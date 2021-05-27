@@ -13,6 +13,7 @@ export const Nav = styled.nav`
 `
 export const Link = styled.a`
   ${({ theme }) => css`
+    cursor: pointer;
     text-decoration: none;
     color: ${theme.colors.black};
     display: flex;
