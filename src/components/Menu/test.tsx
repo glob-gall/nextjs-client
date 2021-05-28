@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { RenderWithTheme } from 'utils/test/helpers'
 
 import Menu from '.'
@@ -51,5 +51,12 @@ describe('<Menu />', () => {
     expect(screen.getByText(/sign up/i)).toBeInTheDocument()
     expect(screen.queryByText(/my account/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/wishlist/i)).not.toBeInTheDocument()
+  })
+
+  it('should not show sign in or dropdown user if loading', () => {
+    render(<Menu username="name" loading />)
+
+    expect(screen.queryByText(/my profile/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/sign in/i)).not.toBeInTheDocument()
   })
 })

@@ -15,9 +15,10 @@ import UserDropdown from 'components/UserDropdown'
 
 export type MenuProps = {
   username?: string | null
+  loading?: boolean
 }
 
-const Menu = ({ username }: MenuProps) => {
+const Menu = ({ username, loading }: MenuProps) => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <S.Wrapper>
@@ -46,67 +47,74 @@ const Menu = ({ username }: MenuProps) => {
         </S.MenuNav>
       </MediaMatch>
 
-      <S.MenuWrapper>
-        <S.IconWrapper>
-          <Link href="/search">
-            <a>
-              <SearchIcon aria-label="Search" />
-            </a>
-          </Link>
-        </S.IconWrapper>
+      {!loading && (
+        <>
+          <S.MenuWrapper>
+            <S.IconWrapper>
+              <Link href="/search">
+                <a>
+                  <SearchIcon aria-label="Search" />
+                </a>
+              </Link>
+            </S.IconWrapper>
 
-        <S.IconWrapper>
-          <MediaMatch greaterThan="medium">
-            <CartDropdown />
-          </MediaMatch>
-          <MediaMatch lessThan="medium">
-            <Link href="/wishlist">
-              <a>
-                <CartIcon aria-label="Open Shopping Cart" />
-              </a>
-            </Link>
-          </MediaMatch>
-        </S.IconWrapper>
+            <S.IconWrapper>
+              <MediaMatch greaterThan="medium">
+                <CartDropdown />
+              </MediaMatch>
+              <MediaMatch lessThan="medium">
+                <Link href="/wishlist">
+                  <a>
+                    <CartIcon aria-label="Open Shopping Cart" />
+                  </a>
+                </Link>
+              </MediaMatch>
+            </S.IconWrapper>
 
-        <MediaMatch greaterThan="medium">
-          {!username ? (
-            <Link href="/signin" passHref>
-              <Button as="a">Sign In</Button>
-            </Link>
-          ) : (
-            <UserDropdown username={username} />
-          )}
-        </MediaMatch>
-      </S.MenuWrapper>
+            <MediaMatch greaterThan="medium">
+              {!username ? (
+                <Link href="/signin" passHref>
+                  <Button as="a">Sign In</Button>
+                </Link>
+              ) : (
+                <UserDropdown username={username} />
+              )}
+            </MediaMatch>
+          </S.MenuWrapper>
 
-      <S.MenuFull aria-hidden={!isOpen} isOpen={isOpen}>
-        <CloseIcon onClick={() => setIsOpen(false)} aria-label="Close Menu" />
-        <S.MenuNav>
-          <S.MenuLink href="/">Home</S.MenuLink>
-          <S.MenuLink href="/games">Explore</S.MenuLink>
-          {!!username && (
-            <>
-              <S.MenuLink href="/profile/me">My profile</S.MenuLink>
-              <S.MenuLink href="/wishlist">Wishlist</S.MenuLink>
-            </>
-          )}
-        </S.MenuNav>
-        {!username && (
-          <S.RegisterBox>
-            <Link href="/signin">
-              <Button fullWidth size="large">
-                Log in now
-              </Button>
-            </Link>
-            <span>or</span>
-            <Link href="/signup">
-              <S.CreateACount href="" title="Sign Up">
-                Sign Up
-              </S.CreateACount>
-            </Link>
-          </S.RegisterBox>
-        )}
-      </S.MenuFull>
+          <S.MenuFull aria-hidden={!isOpen} isOpen={isOpen}>
+            <CloseIcon
+              onClick={() => setIsOpen(false)}
+              aria-label="Close Menu"
+            />
+            <S.MenuNav>
+              <S.MenuLink href="/">Home</S.MenuLink>
+              <S.MenuLink href="/games">Explore</S.MenuLink>
+              {!!username && (
+                <>
+                  <S.MenuLink href="/profile/me">My profile</S.MenuLink>
+                  <S.MenuLink href="/wishlist">Wishlist</S.MenuLink>
+                </>
+              )}
+            </S.MenuNav>
+            {!username && (
+              <S.RegisterBox>
+                <Link href="/signin">
+                  <Button fullWidth size="large">
+                    Log in now
+                  </Button>
+                </Link>
+                <span>or</span>
+                <Link href="/signup">
+                  <S.CreateACount href="" title="Sign Up">
+                    Sign Up
+                  </S.CreateACount>
+                </Link>
+              </S.RegisterBox>
+            )}
+          </S.MenuFull>
+        </>
+      )}
     </S.Wrapper>
   )
 }

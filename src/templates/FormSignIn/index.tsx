@@ -46,9 +46,7 @@ const FormSignIn = () => {
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
-      callbackUrl: query.callbackUrl
-        ? `${window.location.origin}${query?.callbackUrl}`
-        : `${window.location.origin}`
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
     })
 
     if (result?.url) {
@@ -81,7 +79,9 @@ const FormSignIn = () => {
           placeholder="Password"
           icon={<Lock />}
         />
-        <S.ForgotPassword href="/">Forgot your password?</S.ForgotPassword>
+        <Link href="/forgot-password" passHref>
+          <S.ForgotPassword>Forgot your password?</S.ForgotPassword>
+        </Link>
         <Button type="submit" fullWidth size="large" disabled={loading}>
           {loading ? <FormLoading /> : <span>Sign in Now</span>}
         </Button>
