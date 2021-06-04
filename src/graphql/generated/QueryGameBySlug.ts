@@ -62,5 +62,5 @@ export interface QueryGameBySlug {
 }
 
 export interface QueryGameBySlugVariables {
-  slug: string;
+  slug?: string | null;
 }

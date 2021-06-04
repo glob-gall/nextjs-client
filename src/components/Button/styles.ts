@@ -57,6 +57,9 @@ export const Wrapper = styled.button<WrapperProps>`
     align-items: center;
     justify-content: center;
     font-family: ${theme.font.family};
+    &:focus {
+      outline: 1px dashed;
+    }
 
     text-decoration: none;
     cursor: pointer;

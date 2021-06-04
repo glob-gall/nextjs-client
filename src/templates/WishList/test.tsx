@@ -32,7 +32,7 @@ jest.mock('components/Showcase', () => ({
 
 describe('<WishList />', () => {
   it('should render all components', () => {
-    RenderWithTheme(<WishList {...props} games={props.recommendedGames} />)
+    RenderWithTheme(<WishList {...props} />)
 
     expect(screen.getByRole('heading', { name: /wish list/i }))
     expect(screen.getByTestId('showcase mock')).toBeInTheDocument()

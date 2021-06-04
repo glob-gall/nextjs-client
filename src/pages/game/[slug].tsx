@@ -84,6 +84,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         releaseDate: game.release_date
       },
       gameInfoProps: {
+        id: game.id,
         description: game.short_description,
         name: game.name,
         price: game.price

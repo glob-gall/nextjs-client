@@ -4,9 +4,8 @@ export function getStorageItem(key: string) {
   if (window === undefined) return
 
   const data = window.localStorage.getItem(`${APP_KEY}_${key}`)
-  if (!data) return
 
-  return JSON.parse(data)
+  return JSON.parse(data!)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

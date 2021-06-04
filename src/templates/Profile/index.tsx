@@ -12,7 +12,6 @@ export type ProfileTemplateProps = {
 
 const Profile = ({ children }: ProfileTemplateProps) => {
   const { asPath } = useRouter()
-  console.log(asPath)
 
   return (
     <Base>

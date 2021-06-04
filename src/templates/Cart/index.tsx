@@ -11,6 +11,7 @@ import { HighlightProps } from 'components/Highlight'
 import * as S from './styles'
 import PaymentOptions, { PaymentOptionsProps } from 'components/PaymentOptions'
 import Empty from 'components/Empty'
+import { useCart } from 'hooks/use-cart'
 
 export type CartProps = {
   recommendedGames: gameCardProps[]
@@ -21,11 +22,11 @@ export type CartProps = {
 const Cart = ({
   recommendedGames,
   recommendedHighlight,
-  items,
   total,
   cards
 }: CartProps) => {
   const handlePayment = () => ({})
+  const { items } = useCart()
 
   return (
     <Base>

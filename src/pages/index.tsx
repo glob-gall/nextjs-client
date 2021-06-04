@@ -25,7 +25,6 @@ export const getStaticProps = async () => {
     },
     fetchPolicy: 'no-cache'
   })
-  console.log(sections)
 
   return {
     revalidate: 60,

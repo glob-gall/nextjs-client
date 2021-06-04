@@ -3,6 +3,9 @@ import {
   QueryHome_banners,
   QueryHome_sections_freeGames_highlight
 } from 'graphql/generated/QueryHome'
+import { QueryWishlist_wishlists_games } from 'graphql/generated/QueryWishlist'
+import formatPrice from 'utils/formatPrice'
+import { getImageUrl } from 'utils/getImageUrl'
 
 export const BannerMapper = (banners: QueryHome_banners[]) => {
   return banners.map((banner) => ({
@@ -19,7 +22,9 @@ export const BannerMapper = (banners: QueryHome_banners[]) => {
   }))
 }
 
-export const gamesMapper = (games: QueryGames_games[] | null | undefined) => {
+export const gamesMapper = (
+  games: QueryGames_games[] | QueryWishlist_wishlists_games[] | null | undefined
+) => {
   return games
     ? games.map((game) => ({
         id: game.id,
@@ -48,4 +53,15 @@ export const highlightMapper = (
       alignment: highlight.alignment
     }
   )
+}
+
+export const cartMapper = (games: QueryGames_games[] | undefined) => {
+  return games
+    ? games.map((game) => ({
+        id: game.id,
+        img: `${getImageUrl(game.cover?.url)}`,
+        title: game.name,
+        price: formatPrice(game.price)
+      }))
+    : []
 }

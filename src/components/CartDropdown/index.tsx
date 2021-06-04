@@ -1,20 +1,23 @@
 import CartIcon from 'components/CartIcon'
 import CartList from 'components/CartList'
-import { GameItemProps } from 'components/GameItem'
 import Dropdown from 'components/Dropdown'
 import * as S from './styles'
+import { useCart } from 'hooks/use-cart'
 
 export type CardDropdownProps = {
-  items?: GameItemProps[]
   total?: string
 }
 
-const CartDropdown = ({ items = [], total }: CardDropdownProps) => (
-  <S.Wrapper>
-    <Dropdown title={<CartIcon quantity={items.length} />}>
-      <CartList items={items} total={total} hasButton />
-    </Dropdown>
-  </S.Wrapper>
-)
+const CartDropdown = ({ total }: CardDropdownProps) => {
+  const { items } = useCart()
+
+  return (
+    <S.Wrapper>
+      <Dropdown title={<CartIcon quantity={items.length} />}>
+        <CartList items={items} total={total} hasButton />
+      </Dropdown>
+    </S.Wrapper>
+  )
+}
 
 export default CartDropdown
