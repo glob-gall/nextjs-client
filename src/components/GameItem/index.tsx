@@ -1,4 +1,6 @@
 import { Download } from '@styled-icons/boxicons-solid'
+import Button from 'components/Button'
+import { useCart } from 'hooks/use-cart'
 import * as S from './styles'
 
 export type PaymentInfoProps = {
@@ -17,45 +19,36 @@ export type GameItemProps = {
   paymentInfo?: PaymentInfoProps
 }
 
-const GameItem = ({
-  img,
-  price,
-  title,
-  downloadLink,
-  paymentInfo
-}: GameItemProps) => (
-  <S.Wrapper>
-    <S.GameContent>
-      <S.ImageBox>
-        <img src={img} alt={title} />
-      </S.ImageBox>
-      <S.Content>
-        <S.Title>
-          {title}
-          {!!downloadLink && (
-            <S.Download
-              href={downloadLink}
-              target="_blank"
-              aria-label={`Get ${title} here`}
-            >
-              <Download size={22} />
-            </S.Download>
-          )}
-        </S.Title>
-        <S.Price>{price}</S.Price>
-      </S.Content>
-    </S.GameContent>
+const GameItem = ({ id, img, price, title, downloadLink }: GameItemProps) => {
+  const { removeFromCart } = useCart()
 
-    {!!paymentInfo && (
-      <S.PaymentContent>
-        <div>{paymentInfo.purchaseDate}</div>
-        <S.CardInfo>
-          <span>{paymentInfo.number}</span>
-          <img src={paymentInfo.img} alt={paymentInfo.flag} />
-        </S.CardInfo>
-      </S.PaymentContent>
-    )}
-  </S.Wrapper>
-)
+  return (
+    <S.Wrapper>
+      <S.GameContent>
+        <S.ImageBox>
+          <img src={img} alt={title} />
+        </S.ImageBox>
+        <S.Content>
+          <S.Title>
+            {title}
+            {!!downloadLink && (
+              <S.Download
+                href={downloadLink}
+                target="_blank"
+                aria-label={`Get ${title} here`}
+              >
+                <Download size={22} />
+              </S.Download>
+            )}
+          </S.Title>
+          <S.Price>{price}</S.Price>
+        </S.Content>
+      </S.GameContent>
+      <Button minimal size="small" onClick={() => removeFromCart(id)}>
+        remove
+      </Button>
+    </S.Wrapper>
+  )
+}
 
 export default GameItem

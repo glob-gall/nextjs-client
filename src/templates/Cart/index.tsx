@@ -4,28 +4,30 @@ import Showcase from 'components/Showcase'
 import Base from 'templates/Base'
 import { Divider } from 'components/Divider'
 
+import { Session } from 'next-auth'
 import CartList, { CartListProps } from 'components/CartList'
-import { gameCardProps } from 'components/GameCard'
+import { GameCardProps } from 'components/GameCard'
 import { HighlightProps } from 'components/Highlight'
-
+import { loadStripe } from '@stripe/stripe-js'
 import * as S from './styles'
-import PaymentOptions, { PaymentOptionsProps } from 'components/PaymentOptions'
+import PaymentForm from 'components/PaymentForm'
 import Empty from 'components/Empty'
 import { useCart } from 'hooks/use-cart'
+import { Elements } from '@stripe/react-stripe-js'
 
 export type CartProps = {
-  recommendedGames: gameCardProps[]
+  session: Session
+  recommendedGames: GameCardProps[]
   recommendedHighlight: HighlightProps
-} & CartListProps &
-  Pick<PaymentOptionsProps, 'cards'>
+} & CartListProps
+
+const Stripe = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
 
 const Cart = ({
   recommendedGames,
   recommendedHighlight,
-  total,
-  cards
+  session
 }: CartProps) => {
-  const handlePayment = () => ({})
   const { items } = useCart()
 
   return (
@@ -37,14 +39,16 @@ const Cart = ({
 
         <S.Content>
           {items ? (
-            <CartList items={items} total={total} />
+            <CartList />
           ) : (
             <Empty
               title="You have no games here"
               description="Go to store and find the best games to buy"
             />
           )}
-          <PaymentOptions cards={cards} handlePayment={handlePayment} />
+          <Elements stripe={Stripe}>
+            <PaymentForm session={session} />
+          </Elements>
         </S.Content>
 
         <Divider />

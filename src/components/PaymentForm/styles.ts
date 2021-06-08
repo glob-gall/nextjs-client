@@ -1,9 +1,15 @@
 import styled, { css } from 'styled-components'
 import * as HeadingStyle from 'components/Heading/styles'
 
+export const Container = styled.div``
+
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  form {
+    height: 18rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   ${({ theme }) => css`
     background: ${theme.colors.white};
 
@@ -60,4 +66,31 @@ export const ButtonSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`
+
+export const CardContainer = styled.div`
+  margin: 0 2rem;
+`
+
+export const Error = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.red};
+    font-size: ${theme.font.sizes.xsmall};
+    padding-top: ${theme.spacings.xsmall};
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 2rem;
+      margin-right: 0.5rem;
+    }
+  `}
+`
+
+export const FreeGames = styled.p`
+  ${({ theme }) => css`
+    margin: 0 2rem;
+    color: ${theme.colors.black};
+  `}
 `

@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
     padding: ${theme.spacings.small};
       display:flex;
       justify-content:space-between;
-      align-items:flex-start;
+      align-items:center;
     `}
   `}
 `
