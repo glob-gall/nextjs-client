@@ -109,30 +109,3 @@ export const RemoveWishlistMock = {
     }
   }
 }
-
-export const wishlistItems = [
-  {
-    id: '1',
-    name: `name 1`,
-    slug: `slug-1`,
-    developer: 'developer',
-    img: 'http://localhost:1337/img.jpg',
-    price: 10.5
-  },
-  {
-    id: '2',
-    name: `name 2`,
-    slug: `slug-2`,
-    developer: 'developer',
-    img: 'http://localhost:1337/img.jpg',
-    price: 10.5
-  },
-  {
-    id: '3',
-    name: `name 3`,
-    slug: `slug-3`,
-    developer: 'developer',
-    img: 'http://localhost:1337/img.jpg',
-    price: 10.5
-  }
-]

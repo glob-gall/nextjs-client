@@ -14,7 +14,7 @@ export const BannerMapper = (banners: QueryHome_banners[]) => {
     subtitle: banner.subtitle,
     buttonLabel: banner.button?.label,
     buttonLink: banner.button?.link,
-    img: `http://localhost:1337${banner.image?.url}`,
+    img: `${getImageUrl(banner.image?.url)}`,
     ...(banner.ribbon && {
       ribbon: banner.ribbon.text,
       ribbonColor: banner.ribbon.color,
@@ -33,7 +33,7 @@ export const gamesMapper = (
         slug: game.slug,
         developer: game.developers[0].name,
         img: game.cover
-          ? `http://localhost:1337${game.cover.url}`
+          ? `${getImageUrl(game.cover.url)}`
           : 'https://source.unsplash.com/user/willianjusten/300x140',
         price: game.price
       }))
@@ -49,8 +49,8 @@ export const highlightMapper = (
       subtitle: highlight.subtitle,
       buttonLabel: highlight.buttonLabel,
       buttonLink: highlight.buttonLink,
-      backgroundImage: `http://localhost:1337${highlight.background?.url}`,
-      floatImg: `http://localhost:1337${highlight.floatImage?.url}`,
+      backgroundImage: `${getImageUrl(highlight.background?.url)}`,
+      floatImg: `${getImageUrl(highlight.floatImage?.url)}`,
       alignment: highlight.alignment
     }
   )

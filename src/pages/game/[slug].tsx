@@ -12,6 +12,7 @@ import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import Game, { GameProps } from 'templates/Game'
 import { initializeApollo } from 'utils/apollo'
+import { getImageUrl } from 'utils/getImageUrl'
 import { gamesMapper, highlightMapper } from 'utils/mappers'
 
 const apolloClient = initializeApollo()
@@ -71,7 +72,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       galleryProps: {
         items: game.gallery.map((image, index) => ({
-          src: `http://localhost:1337${image.src}`,
+          src: `${getImageUrl(image.src)}`,
           label: index
         }))
       },
@@ -90,7 +91,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         price: game.price
       },
       cover:
-        `http://localhost:1337${game.cover?.src}` ||
+        `${getImageUrl(game.cover?.src)}` ||
         'https://source.unsplash.com/user/willianjusten/1080x580',
       description: game.description,
       recommendedGames: gamesMapper(recommended?.section?.games),

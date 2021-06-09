@@ -4,7 +4,7 @@ import GameDetails, { GameDetailsProps } from 'components/GameDetails'
 import GameInfo, { gameInfoProps } from 'components/GameInfo'
 import Showcase from 'components/Showcase'
 import TextContent from 'components/TextContent'
-import { gameCardProps } from 'components/GameCard'
+import { GameCardProps } from 'components/GameCard'
 import { HighlightProps } from 'components/Highlight'
 import * as S from './styles'
 import { Divider } from 'components/Divider'
@@ -15,9 +15,9 @@ export type GameProps = {
   gameDetailsProps: GameDetailsProps
   galleryProps?: GalleryProps
   description: string
-  upcomingGames: gameCardProps[]
+  upcomingGames: GameCardProps[]
   upcomingHighlights: HighlightProps
-  recommendedGames: gameCardProps[]
+  recommendedGames: GameCardProps[]
 }
 
 const Game = ({
