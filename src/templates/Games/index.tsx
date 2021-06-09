@@ -12,6 +12,7 @@ import { Grid } from 'components/Grid'
 import Base from 'templates/Base'
 import * as S from './styles'
 import Empty from 'components/Empty'
+import { getImageUrl } from 'utils/getImageUrl'
 
 export type GamesTemplateProps = {
   sideBarProps: ExploreSidebarProps
@@ -69,7 +70,7 @@ const GamesTemplate = ({ sideBarProps }: GamesTemplateProps) => {
                     title={game.name}
                     developer={game.developers[0].name}
                     img={
-                      `http://localhost:1337${game.cover?.url}` ||
+                      `${getImageUrl(game.cover?.url)}` ||
                       'https://source.unsplash.com/user/willianjusten/300x140'
                     }
                     price={game.price}

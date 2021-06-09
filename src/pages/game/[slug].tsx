@@ -70,6 +70,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     revalidate: 60,
     props: {
+      slug: params?.slug,
       galleryProps: {
         items: game.gallery.map((image, index) => ({
           src: `${getImageUrl(image.src)}`,

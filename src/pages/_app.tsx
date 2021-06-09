@@ -1,6 +1,9 @@
 import { ApolloProvider } from '@apollo/client'
 import { Provider as AuthProvider } from 'next-auth/client'
 
+import { DefaultSeo } from 'next-seo'
+import SEO from '../../next-seo.config'
+
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
@@ -31,6 +34,7 @@ function App({ Component, pageProps }: AppProps) {
                     content="A store made by gamers to gamers"
                   />
                 </Head>
+                <DefaultSeo {...SEO} />
                 <GlobalStyles />
                 <Component {...pageProps} />
               </WishlistProvider>

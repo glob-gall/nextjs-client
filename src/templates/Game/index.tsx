@@ -1,3 +1,5 @@
+import { NextSeo } from 'next-seo'
+
 import Base from 'templates/Base'
 import Gallery, { GalleryProps } from 'components/Gallery'
 import GameDetails, { GameDetailsProps } from 'components/GameDetails'
@@ -10,10 +12,11 @@ import * as S from './styles'
 import { Divider } from 'components/Divider'
 
 export type GameProps = {
+  slug: string
   cover: string
-  gameInfoProps: gameInfoProps
-  gameDetailsProps: GameDetailsProps
-  galleryProps?: GalleryProps
+  gameInfo: gameInfoProps
+  gameDetails: GameDetailsProps
+  gallery?: GalleryProps
   description: string
   upcomingGames: GameCardProps[]
   upcomingHighlights: HighlightProps
@@ -21,24 +24,36 @@ export type GameProps = {
 }
 
 const Game = ({
+  slug,
   cover,
-  gameInfoProps,
-  gameDetailsProps,
-  galleryProps,
+  gameInfo,
+  gameDetails,
+  gallery,
   description,
   recommendedGames,
   upcomingGames,
   upcomingHighlights
 }: GameProps) => (
   <Base>
+    <NextSeo
+      title={`${gameInfo.name} - Won Games`}
+      description={gameInfo.description}
+      canonical={`https://www.wongames.glob.com/game/${slug}`}
+      openGraph={{
+        url: `https://www.wongames.glob.com/game/${slug}`,
+        title: `${gameInfo.name} - Won games`,
+        description: gameInfo.description,
+        images: [{ url: cover, alt: gameInfo.name }]
+      }}
+    />
     <S.Cover src={cover} role="image" aria-label="cover" />
     <S.SectionGameInfo>
-      <GameInfo {...gameInfoProps} />
+      <GameInfo {...gameInfo} />
     </S.SectionGameInfo>
 
-    {!!galleryProps && (
+    {!!gallery && (
       <S.SectionGallery>
-        <Gallery {...galleryProps} />
+        <Gallery {...gallery} />
       </S.SectionGallery>
     )}
 
@@ -47,7 +62,7 @@ const Game = ({
     </S.SectionContent>
 
     <S.SectionGameDetails>
-      <GameDetails {...gameDetailsProps} />
+      <GameDetails {...gameDetails} />
       <Divider />
     </S.SectionGameDetails>
 
