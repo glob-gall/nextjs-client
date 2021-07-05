@@ -1,6 +1,6 @@
 /// <reference path="../support/index.d.ts" />
 
-describe('cypress TS', () => {
+describe.skip('cypress TS', () => {
   it('should visit google', () => {
     cy.google()
   })

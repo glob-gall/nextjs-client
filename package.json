@@ -100,7 +100,7 @@
     "node-fetch": "^2.6.1",
     "plop": "^2.7.4",
     "prettier": "^2.2.1",
-    "start-server-and-test": "^1.12.3",
+    "start-server-and-test": "^1.12.5",
     "typescript": "^4.2.4"
   }
 }

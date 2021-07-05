@@ -21,7 +21,7 @@ const Highlight = ({
   floatImg,
   alignment = 'right'
 }: HighlightProps) => (
-  <S.Wrapper alignment={alignment}>
+  <S.Wrapper alignment={alignment} data-cy="highlight">
     <Image src={backgroundImage} layout="fill" objectFit="cover" />
     {!!floatImg && <S.FloatImage src={floatImg} alt={title} />}
     <S.Content>
